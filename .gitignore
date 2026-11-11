@@ -1,0 +1,14 @@
+# Ambiente e segredos: nunca versionar.
+# O modelo de variáveis do app fica em octupos/.env.local.example.
+.env
+.env.*
+*.pem
+
+# Dependências, builds e temporários
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# Gerado automaticamente pelo `next dev`
+AGENTS.md
