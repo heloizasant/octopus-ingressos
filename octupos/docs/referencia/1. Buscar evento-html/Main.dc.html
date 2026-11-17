@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Buscar evento</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap">
+<style>
+  body { margin: 0; font-family: 'Inter', system-ui, sans-serif; color: #1F2937; }
+  a { color: inherit; text-decoration: none; }
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #FAF9F6; display: flex; flex-direction: column; overflow: hidden; position: relative;">
+
+  <div style="padding: 28px 24px 16px 24px; display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="width: 40px; height: 40px; border-radius: 12px; background: #5B4FE9; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2C7.58 2 4 5.58 4 10C4 11.5 4.5 12.8 5.3 13.9C4.9 14.3 4.6 14.8 4.6 15.4C4.6 16.3 5.3 17 6.2 17C6.7 17 7.1 16.8 7.4 16.4C7.5 17.1 8.1 17.6 8.8 17.6C9.4 17.6 9.9 17.2 10.1 16.7C10.4 17.3 11 17.7 11.7 17.7C12.3 17.7 12.9 17.3 13.1 16.8C13.4 17.3 13.9 17.6 14.5 17.6C15.2 17.6 15.8 17.1 15.9 16.4C16.2 16.8 16.6 17 17.1 17C18 17 18.7 16.3 18.7 15.4C18.7 14.8 18.4 14.3 18 13.9C18.8 12.8 19.3 11.5 19.3 10C19.3 5.58 16.42 2 12 2Z" fill="#FFFFFF"></path>
+          <circle cx="9" cy="9" r="1.2" fill="#5B4FE9"></circle>
+          <circle cx="15" cy="9" r="1.2" fill="#5B4FE9"></circle>
+        </svg>
+      </div>
+      <h1 style="margin: 0; font-size: 26px; font-weight: 800; color: #1F2937;">Octupos</h1>
+    </div>
+    <p style="margin: 0; font-size: 15px; color: #6B7280;">Compre e revenda ingressos com segurança</p>
+  </div>
+
+  <div style="padding: 0 24px 16px 24px;">
+    <label for="search" style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Buscar evento</label>
+    <input id="search" type="text" placeholder="Nome do evento, artista ou local" style="width: 100%; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; border: 1px solid #E5E7EB; background: #FFFFFF; font-size: 15px; color: #1F2937;">
+  </div>
+
+  <div style="flex: 1 1 auto; overflow-y: auto; padding: 4px 24px 24px 24px; display: flex; flex-direction: column; gap: 14px;">
+    <h2 style="margin: 8px 0 0 0; font-size: 15px; font-weight: 700; color: #374151;">Em destaque</h2>
+
+    <div style="background: #FFFFFF; border: 2px solid #5B4FE9; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; position: relative;">
+      <div style="position: absolute; top: 14px; right: 14px; background: #5B4FE9; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px;">Selecionado</div>
+      <h3 style="margin: 0; font-size: 17px; font-weight: 700; color: #1F2937; padding-right: 90px;">Festa Universitária — Virada Calourus</h3>
+      <p style="margin: 0; font-size: 13px; color: #6B7280;">Sáb, 29 de novembro · Centro de Eventos</p>
+      <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600; color: #5B4FE9;">12 ingressos disponíveis para revenda</p>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+      <h3 style="margin: 0; font-size: 17px; font-weight: 700; color: #1F2937;">Show de Encerramento — Arena Sul</h3>
+      <p style="margin: 0; font-size: 13px; color: #6B7280;">Sex, 12 de dezembro · Arena Sul</p>
+      <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600; color: #5B4FE9;">5 ingressos disponíveis para revenda</p>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+      <h3 style="margin: 0; font-size: 17px; font-weight: 700; color: #1F2937;">Festival de Primavera</h3>
+      <p style="margin: 0; font-size: 13px; color: #6B7280;">Dom, 21 de dezembro · Parque da Cidade</p>
+      <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600; color: #5B4FE9;">3 ingressos disponíveis para revenda</p>
+    </div>
+  </div>
+
+  <div style="padding: 16px 24px 28px 24px; border-top: 1px solid #E5E7EB; background: #FAF9F6;">
+    <a href="Listagem.dc.html" style="display: block; text-align: center; background: #5B4FE9; color: #FFFFFF; font-size: 17px; font-weight: 700; padding: 16px; border-radius: 14px;">Ver ingressos disponíveis</a>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
