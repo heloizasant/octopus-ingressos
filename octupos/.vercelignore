@@ -1,0 +1,18 @@
+# Arquivos que NUNCA vão para a Vercel.
+# O protótipo publicado usa só dados locais (localStorage): não precisa de variáveis de ambiente.
+
+# Variáveis de ambiente e possíveis segredos
+.env
+.env.*
+
+# Gerados localmente (a Vercel instala e compila sozinha)
+node_modules
+.next
+*.tsbuildinfo
+*.log
+
+# Não fazem parte do site publicado
+supabase
+scripts
+docs
+AGENTS.md

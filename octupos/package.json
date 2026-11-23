@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
+    "test:fluxos": "tsx scripts/verificar-fluxos.ts",
+    "test:banco": "tsx scripts/testar-banco.ts",
     "seed": "tsx scripts/seed.ts",
-    "db:push": "supabase db push"
+    "db:push": "supabase db push --remote"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -19,6 +21,7 @@
     "cn": "^0.5.2",
     "lucide-react": "^1.74.0",
     "next": "16.4.6",
+    "qrcode": "^1.5.4",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "shadcn": "^4.23.0",
@@ -26,8 +29,10 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.17",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
