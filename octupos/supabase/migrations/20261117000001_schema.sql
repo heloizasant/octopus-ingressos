@@ -30,21 +30,23 @@ create type public.record_type as enum (
 );
 
 -- ---------------------------------------------------------------------------
--- Parâmetros da demonstração (taxa configurável etc.)
+-- Parâmetros da demonstração (taxas configuráveis etc.)
+-- Taxas são frações do preço-base: 0.02 = 2%.
 -- ---------------------------------------------------------------------------
 create table public.app_settings (
   chave         text primary key,
   valor         numeric not null,
   descricao     text not null,
   atualizado_em timestamptz not null default now(),
-  constraint taxa_entre_5_e_10 check (
-    chave <> 'taxa_servico_percentual' or valor between 5 and 10
-  ),
-  constraint valores_positivos check (valor > 0)
+  constraint valores_nao_negativos check (valor >= 0),
+  constraint taxa_e_fracao check (
+    chave not in ('buyer_fee_rate', 'seller_fee_rate') or valor < 1
+  )
 );
 
 insert into public.app_settings (chave, valor, descricao) values
-  ('taxa_servico_percentual', 8,   'Taxa de serviço demonstrativa, em % sobre o preço do ingresso'),
+  ('buyer_fee_rate',          0.02, 'Taxa demonstrativa do comprador, fração do preço-base (0.02 = 2%)'),
+  ('seller_fee_rate',         0.02, 'Taxa demonstrativa do vendedor, fração do preço-base (0.02 = 2%)'),
   ('reserva_minutos',         10,  'Tempo de reserva do ingresso durante o checkout'),
   ('analise_limite_aprovada', 1.5, 'Análise demonstrativa: aprovada até este múltiplo do preço de referência'),
   ('analise_limite_pendente', 2.5, 'Análise demonstrativa: pendente até este múltiplo; acima, reprovada');
@@ -116,16 +118,28 @@ create table public.orders (
   ticket_id         uuid not null references public.tickets (id) on delete restrict,
   buyer_id          uuid not null references public.profiles (id) on delete restrict,
   seller_id         uuid not null references public.profiles (id) on delete restrict,
+  -- Preço-base do ingresso no momento da compra.
   valor_ingresso    numeric(10, 2) not null check (valor_ingresso > 0),
-  taxa_percentual   numeric(5, 2)  not null check (taxa_percentual between 0 and 100),
-  taxa_servico      numeric(10, 2) not null check (taxa_servico >= 0),
-  valor_total       numeric(10, 2) not null,
+  -- Taxas copiadas de app_settings na criação do pedido: mudar o parâmetro
+  -- depois não altera pedidos existentes.
+  buyer_fee_rate    numeric(5, 4) not null check (buyer_fee_rate >= 0 and buyer_fee_rate < 1),
+  seller_fee_rate   numeric(5, 4) not null check (seller_fee_rate >= 0 and seller_fee_rate < 1),
+  -- Valores calculados pelo próprio banco, sempre coerentes com as taxas.
+  buyer_fee         numeric(10, 2) generated always as
+                      (round(valor_ingresso * buyer_fee_rate, 2)) stored,
+  seller_fee        numeric(10, 2) generated always as
+                      (round(valor_ingresso * seller_fee_rate, 2)) stored,
+  -- Quanto o comprador paga (simulado): preço-base + taxa do comprador.
+  valor_total       numeric(10, 2) generated always as
+                      (valor_ingresso + round(valor_ingresso * buyer_fee_rate, 2)) stored,
+  -- Quanto seria liberado ao vendedor (demonstrativo): preço-base - taxa do vendedor.
+  valor_liquido_vendedor numeric(10, 2) generated always as
+                      (valor_ingresso - round(valor_ingresso * seller_fee_rate, 2)) stored,
   status            public.order_status not null default 'aguardando_pagamento',
   reservado_ate     timestamptz,
   etapa_alterada_em timestamptz not null default now(),
   criado_em         timestamptz not null default now(),
-  constraint comprador_diferente_vendedor check (buyer_id <> seller_id),
-  constraint total_coerente check (valor_total = valor_ingresso + taxa_servico)
+  constraint comprador_diferente_vendedor check (buyer_id <> seller_id)
 );
 
 -- Um ingresso só pode ter um pedido não cancelado: impede compra simultânea
