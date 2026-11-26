@@ -3,7 +3,8 @@
 Contas **fictícias**, criadas pelo script `npm run seed`. O domínio `.test` é
 reservado e nunca recebe e-mail. Use estas contas apenas na demonstração.
 
-Senha de todas as contas: `SENHA-REMOVIDA`
+A senha de todas as contas é definida em `SEED_DEMO_PASSWORD`, no `.env.local`
+(nunca no repositório). O seed não roda sem ela.
 
 | Perfil | E-mail | Nome | Uso na demonstração |
 |---|---|---|---|

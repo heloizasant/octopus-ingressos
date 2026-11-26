@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Octopus — aplicação
 
-## Getting Started
+Next.js 16, React 19, TypeScript, Tailwind CSS 4 e Supabase.
 
-First, run the development server:
+## Como rodar
+
+Requer Node.js 20.9 ou superior.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A demonstração não precisa de variáveis de ambiente: os dados ficam no
+`localStorage` do navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Comandos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Comando | O que faz |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | Verificação de tipos |
+| `npm run test:fluxos` | Testes das regras da demonstração (sem banco e sem rede) |
+| `npm run test:banco` | Testes do esquema em rascunho num PostgreSQL local (PGlite), sem Docker e sem rede |
 
-## Learn More
+## Pastas
 
-To learn more about Next.js, take a look at the following resources:
+| Pasta | Conteúdo |
+|---|---|
+| `src/app/` | Rotas (páginas) |
+| `src/components/` | Componentes de interface |
+| `src/lib/domain/` | Regras compartilhadas: taxas, formatação, tipos |
+| `src/lib/demo/` | Estado da demonstração (`localStorage`) |
+| `src/lib/supabase/` | Clientes do Supabase (ainda não usados pelas telas) |
+| `supabase/rascunho-v2/` | Novo esquema do banco (rascunho, não aplicado) — ver o README da pasta |
+| `supabase/migrations/` | Esquema da versão anterior (não aplicado) |
+| `scripts/` | Testes e o script de dados iniciais |
+| `docs/` | Referência de tela e notas de demonstração |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Regras da demonstração
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Taxas de 2% do comprador e 2% do vendedor, sobre o preço-base.
+- Preço de revenda limitado a 1,5× o valor de face.
+- Pagamentos simulados; os registros usam códigos `SIM-…` para não parecerem
+  transações reais.
 
-## Deploy on Vercel
+## Variáveis de ambiente
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Só são necessárias para usar o Supabase. Copie `.env.local.example` para
+`.env.local` e preencha. O `.env.local` nunca deve ser versionado.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+O script `npm run seed` está desatualizado em relação ao esquema em rascunho e será
+reescrito; não o use contra um banco real.

@@ -2,7 +2,8 @@
  * Dados de demonstração do Octupos.
  *
  * Uso: `npm run seed` (dentro de `octupos/`).
- * Precisa de NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SECRET_KEY em `.env.local`.
+ * Precisa de NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SECRET_KEY e SEED_DEMO_PASSWORD
+ * em `.env.local`.
  *
  * ATENÇÃO: o script RESTAURA a demonstração. Ele apaga todos os eventos,
  * anúncios, pedidos, pagamentos, transferências e registros do banco e cria
@@ -32,8 +33,15 @@ const supabase: SupabaseClient = createClient(url, secretKey, {
   auth: { persistSession: false, autoRefreshToken: false },
 });
 
-/** Senha só de demonstração, documentada em docs/credenciais-demo.md. */
-const SENHA_DEMO = "SENHA-REMOVIDA";
+/**
+ * Senha das contas de demonstração. Nunca fica no código: defina
+ * SEED_DEMO_PASSWORD no `.env.local` (mínimo de 12 caracteres).
+ */
+const SENHA_DEMO = process.env.SEED_DEMO_PASSWORD ?? "";
+if (SENHA_DEMO.length < 12) {
+  console.error("Defina SEED_DEMO_PASSWORD em .env.local (mínimo de 12 caracteres).");
+  process.exit(1);
+}
 
 // ---------------------------------------------------------------------------
 // Utilitários
