@@ -13,11 +13,11 @@ import {
 } from "./actions";
 
 /** Mudar a versão descarta dados antigos guardados no navegador. */
-export const VERSAO_ESTADO = 4; // 4: venda primária + revenda interna
+export const VERSAO_ESTADO = 7; // 7: quatro eventos em destaque com imagens enviadas pela equipe
 
 const DIA_MS = 86_400_000;
 const SEMANA_MS = 7 * DIA_MS;
-/** A Virada Calourus (primeiro evento em destaque) sempre fica a pelo menos 7 dias. */
+/** O primeiro evento (Good Times) sempre fica a pelo menos 7 dias. */
 const ANTECEDENCIA_MINIMA_MS = 7 * DIA_MS;
 
 export const USUARIOS: Usuario[] = [
@@ -39,26 +39,32 @@ const lote = (id: string, nome: string, preco: number, quantidade: number) => ({
 const EVENTOS: EventoBase[] = [
   {
     id: "evt-calourus",
-    nome: "Festa Universitária — Virada Calourus",
-    descricao: "A festa de boas-vindas aos calouros, com DJs e atrações da cena universitária. Evento fictício.",
-    data: "2026-11-28T22:00:00-03:00", // sábado
-    local: "Centro de Eventos",
-    categoria: "Festa universitária",
+    nome: "Good Times by Illusionize",
+    descricao: "Noite de música eletrônica com pista e DJs convidados. Dados fictícios de demonstração: não é um evento confirmado.",
+    data: "2026-11-28T22:00:00-03:00",
+    local: "Espaço Cerrado",
+    cidade: "Goiânia – GO",
+    categoria: "Música eletrônica",
     produtor_id: "usr-prod-atletica",
     destaque: true,
-    capa: { de: "#5B4FE9", para: "#9B8CFF" },
+    capa: { de: "#0e4a55", para: "#e07a3f" },
+    imagem: { src: "/images/events/terceiros/good-times.jpg", alt: "DJ sorrindo na pista, com o público ao fundo", credito: "Imagem de terceiros, uso restrito à demonstração local (fora do repositório)" },
+    origem: "demonstrativo",
     lotes: [lote("lot-cal-pista", "Pista", 60, 150), lote("lot-cal-camarote", "Camarote", 90, 40)],
   },
   {
     id: "evt-arena",
-    nome: "Show de Encerramento — Arena Sul",
-    descricao: "Show de encerramento da temporada com artistas convidados. Evento fictício.",
-    data: "2026-12-11T21:00:00-03:00", // sexta-feira
+    nome: "Sertanejo no Cerrado",
+    descricao: "Noite de música sertaneja com arena iluminada e área VIP. Dados fictícios de demonstração: não é um evento confirmado.",
+    data: "2026-12-11T21:00:00-03:00",
     local: "Arena Sul",
-    categoria: "Show",
+    cidade: "Goiânia – GO",
+    categoria: "Sertanejo",
     produtor_id: "usr-prod-arena",
     destaque: true,
-    capa: { de: "#1F2937", para: "#5B4FE9" },
+    capa: { de: "#14102a", para: "#b45309" },
+    imagem: { src: "/images/events/terceiros/sertanejo-no-cerrado.jpg", alt: "Cantor de chapéu na arena, com a arquibancada iluminada por celulares", credito: "Imagem de terceiros, uso restrito à demonstração local (fora do repositório)" },
+    origem: "demonstrativo",
     lotes: [
       lote("lot-are-pista", "Pista", 150, 300),
       lote("lot-are-meia", "Meia-entrada", 75, 100),
@@ -67,55 +73,67 @@ const EVENTOS: EventoBase[] = [
   },
   {
     id: "evt-primavera",
-    nome: "Festival de Primavera",
-    descricao: "Festival ao ar livre com música, food trucks e feira criativa. Evento fictício.",
-    data: "2026-12-20T16:00:00-03:00", // domingo
+    nome: "Electronic Experience",
+    descricao: "Festival de música eletrônica com cenografia iluminada e pista ao ar livre. Dados fictícios de demonstração: não é um evento confirmado.",
+    data: "2026-12-20T20:00:00-03:00",
     local: "Parque da Cidade",
-    categoria: "Festival",
+    cidade: "Senador Canedo – GO",
+    categoria: "Música eletrônica",
     produtor_id: "usr-prod-arena",
     destaque: true,
-    capa: { de: "#EC4899", para: "#F59E0B" },
+    capa: { de: "#5b21b6", para: "#ec4899" },
+    imagem: { src: "/images/events/terceiros/electronic-experience.jpg", alt: "DJ de costas com os braços abertos diante de uma pista lotada", credito: "Imagem de terceiros, uso restrito à demonstração local (fora do repositório)" },
+    origem: "demonstrativo",
     lotes: [lote("lot-pri-inteira", "Inteira", 90, 200), lote("lot-pri-meia", "Meia-entrada", 45, 100)],
   },
   {
     id: "evt-sarau",
-    nome: "Sarau de Verão",
-    descricao: "Noite de música acústica e poesia no teatro. Evento fictício.",
-    data: "2027-01-09T20:00:00-03:00",
-    local: "Teatro Municipal",
-    categoria: "Teatro e música",
+    nome: "Pagode na Praça",
+    descricao: "Tarde de pagode ao ar livre com grupos convidados. Dados fictícios de demonstração: não é um evento confirmado.",
+    data: "2026-12-05T16:00:00-03:00",
+    local: "Praça Central",
+    cidade: "Aparecida de Goiânia – GO",
+    categoria: "Pagode",
     produtor_id: "usr-prod-atletica",
-    destaque: false,
-    capa: { de: "#0EA5E9", para: "#5B4FE9" },
-    lotes: [lote("lot-sar-plateia", "Plateia", 40, 120)],
+    destaque: true,
+    capa: { de: "#3b0a8c", para: "#ec4899" },
+    imagem: { src: "/images/events/terceiros/pagode-na-praca.jpg", alt: "Grupo de pagode no palco com o público de mãos levantadas", credito: "Imagem de terceiros, uso restrito à demonstração local (fora do repositório)" },
+    origem: "demonstrativo",
+    lotes: [lote("lot-sar-plateia", "Pista", 40, 120)],
   },
   {
     id: "evt-futsal",
-    nome: "Copa Universitária de Futsal — Final",
-    descricao: "A grande final da copa entre as atléticas. Evento fictício.",
-    data: "2027-01-23T19:00:00-03:00",
-    local: "Ginásio Poliesportivo",
-    categoria: "Esporte",
+    nome: "Arena 360 Sertaneja",
+    descricao: "Sertanejo e música brasileira num palco circular no centro do público. Evento fictício.",
+    data: "2027-01-23T20:00:00-03:00",
+    local: "Arena Norte",
+    cidade: "Goiânia – GO",
+    categoria: "Sertanejo e música brasileira",
     produtor_id: "usr-prod-atletica",
     destaque: false,
-    capa: { de: "#10B981", para: "#0F766E" },
-    lotes: [lote("lot-fut-arquibancada", "Arquibancada", 25, 400)],
+    capa: { de: "#c2410c", para: "#f6a04d" },
+    imagem: { src: "/images/events/arena-360-sertaneja.jpg", alt: "Ilustração de palco circular com público ao redor e raios de luz alaranjados", credito: "Arte ilustrativa do Octopus (demonstração)" },
+    origem: "demonstrativo",
+    lotes: [lote("lot-fut-arquibancada", "Pista 360", 120, 400)],
   },
   {
     id: "evt-gastro",
-    nome: "Festival Gastronômico & Música",
-    descricao: "Gastronomia regional com shows ao vivo na praça. Evento fictício.",
-    data: "2027-02-06T12:00:00-03:00",
+    nome: "Cerrado Noise Rock",
+    descricao: "Festival de rock independente em dois dias, com bandas de vários estilos. Evento fictício.",
+    data: "2027-02-06T16:00:00-03:00",
     local: "Praça Central",
-    categoria: "Festival",
+    cidade: "Goiânia – GO",
+    categoria: "Rock",
     produtor_id: "usr-prod-arena",
     destaque: false,
-    capa: { de: "#F97316", para: "#DB2777" },
-    lotes: [lote("lot-gas-passaporte", "Passaporte 2 dias", 70, 250)],
+    capa: { de: "#1d4ed8", para: "#ec4899" },
+    imagem: { src: "/images/events/cerrado-noise-rock.jpg", alt: "Ilustração de guitarra rosa entre amplificadores, com raios e moldura em zigue-zague", credito: "Arte ilustrativa do Octopus (demonstração)" },
+    origem: "demonstrativo",
+    lotes: [lote("lot-gas-passaporte", "Passaporte 2 dias", 160, 250)],
   },
 ];
 
-/** Datas móveis: avança semanas inteiras quando a Virada Calourus fica a menos de 7 dias. */
+/** Datas móveis: avança semanas inteiras quando o primeiro evento fica a menos de 7 dias. */
 export function semanasDeDeslocamento(agora: number): number {
   const base = new Date(EVENTOS[0].data).getTime();
   const limite = agora + ANTECEDENCIA_MINIMA_MS;

@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-/** Selo circular do logo Octopus (polvo com ingresso), recortado da arte oficial. */
+/** Selo circular do logo Octopus: o polvo com ingresso, mascote e símbolo da marca. */
 export function LogoMarca({ tamanho = 40, className }: { tamanho?: number; className?: string }) {
   return (
     <Image
-      src="/octopus-logo.png"
+      src="/mascote-octopus.png"
       alt=""
       aria-hidden="true"
       width={tamanho}
@@ -20,10 +20,7 @@ export function Logo({ className }: { className?: string }) {
   return (
     <span className={cn("flex items-center gap-2.5", className)}>
       <LogoMarca tamanho={40} />
-      <span className="flex flex-col leading-none">
-        <span className="text-[21px] font-extrabold tracking-tight text-ink">Octopus</span>
-        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-ink-3">Ingressos</span>
-      </span>
+      <span className="text-[22px] font-extrabold leading-none tracking-tight text-ink">Octopus</span>
     </span>
   );
 }

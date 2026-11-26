@@ -39,9 +39,27 @@ export interface Evento {
   produtor_id: string;
   destaque: boolean;
   status: StatusEvento;
-  /** Cores da capa gráfica (gradiente). */
+  /** Cores da capa gráfica (gradiente). Também é o fundo de reserva quando não há imagem. */
   capa: { de: string; para: string };
   lotes: Lote[];
+  /** Cidade e UF, ex.: "Goiânia – GO". */
+  cidade?: string;
+  /** Imagem de divulgação, arquivo local em /public/images/events. Sem ela, a capa usa o gradiente. */
+  imagem?: ImagemEvento;
+  /**
+   * "real" só para eventos com informações verificadas em fonte pública (`fonte`).
+   * Ausente ou "demonstrativo": evento fictício da demonstração.
+   */
+  origem?: "demonstrativo" | "real";
+  fonte?: string;
+}
+
+export interface ImagemEvento {
+  src: string;
+  /** Descrição do conteúdo da imagem. */
+  alt: string;
+  /** Autoria e licença, quando a imagem não é própria do projeto. */
+  credito?: string;
 }
 
 /**

@@ -16,8 +16,8 @@ function destinoSeguro(valor: string | null): string {
 
 const DESCRICAO_PAPEL: Record<string, string> = {
   "usr-admin": "Vê e valida ingressos de todos os eventos",
-  "usr-prod-atletica": "Produtor: Virada Calourus, Sarau e Final de Futsal",
-  "usr-prod-arena": "Produtor: Arena Sul, Festival de Primavera e Gastronômico",
+  "usr-prod-atletica": "Produtor: Good Times, Pagode na Praça e Arena 360",
+  "usr-prod-arena": "Produtor: Sertanejo no Cerrado, Electronic Experience e Cerrado Noise Rock",
   "usr-comprador": "Comprador com 3 ingressos válidos",
   "usr-ana": "Tem 1 ingresso anunciado e 1 comprado na revenda",
   "usr-bruno": "Tem 1 ingresso anunciado e 1 válido",

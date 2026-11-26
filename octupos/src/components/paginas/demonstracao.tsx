@@ -15,7 +15,7 @@ interface Passo {
   roteiro: string[];
 }
 
-/** Primeiro ingresso do Diego para a Virada Calourus (o que será revendido na demonstração). */
+/** Primeiro ingresso do Diego para o Good Times (o que será revendido na demonstração). */
 const ingressoDoDiego = (e: EstadoDemo) =>
   ingressosDoTitular(e, "usr-comprador").find((t) => t.event_id === "evt-calourus");
 
@@ -122,7 +122,7 @@ export function Demonstracao() {
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Aviso tom="marca" className="flex-1" titulo="Cada botão troca de perfil e abre a tela do passo">
           Os dados mudam de verdade (no navegador): o que você faz em um passo aparece nos seguintes.
-          {diego ? ` Código atual do Diego para a Calourus: ${diego.codigo_atual}${anunciado ? " (anunciado)" : ""}.` : ""}
+          {diego ? ` Código atual do Diego para o Good Times: ${diego.codigo_atual}${anunciado ? " (anunciado)" : ""}.` : ""}
         </Aviso>
         <Botao
           variant="outline"

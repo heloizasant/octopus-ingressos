@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { ArrowLeft, BadgeCheck, Building2, CalendarDays, MapPin, Repeat, Tag } from "lucide-react";
 import { Aviso, Cartao, Carregando, LinkBotao, Pagina, Selo, Vazio } from "@/components/octupos/base";
 import { CapaEvento } from "@/components/octupos/capa-evento";
+import { localCompleto, SeloOrigem } from "@/components/octupos/cartao-evento";
 import { NaoEncontrado } from "@/components/octupos/nao-encontrado";
 import {
   anunciosAtivosDoEvento,
@@ -50,8 +51,19 @@ export function EventoDetalhe() {
 
       <div className="grid gap-8 lg:grid-cols-[2fr_3fr]">
         <div className="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
-          <CapaEvento evento={evento} className="h-40 rounded-2xl md:h-56" />
+          <figure className="flex flex-col gap-1.5">
+            <CapaEvento
+              evento={evento}
+              className="aspect-[16/9] w-full rounded-2xl"
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              prioridade
+            />
+            {evento.imagem?.credito ? (
+              <figcaption className="text-[11px] text-ink-3">{evento.imagem.credito}</figcaption>
+            ) : null}
+          </figure>
           <div className="flex flex-col gap-3">
+            <SeloOrigem evento={evento} />
             <h1 className="text-[26px] font-extrabold leading-tight tracking-tight text-ink md:text-3xl">{evento.nome}</h1>
             <ul className="flex flex-col gap-2 text-[15px] text-ink-2">
               <li className="flex items-center gap-2.5">
@@ -59,8 +71,8 @@ export function EventoDetalhe() {
                 {dataCompleta(evento.data_hora)}
               </li>
               <li className="flex items-center gap-2.5">
-                <MapPin className="size-4 text-brand" aria-hidden="true" />
-                {evento.local}
+                <MapPin className="size-4 shrink-0 text-brand" aria-hidden="true" />
+                {localCompleto(evento)}
               </li>
               <li className="flex items-center gap-2.5">
                 <Building2 className="size-4 text-brand" aria-hidden="true" />
@@ -72,6 +84,19 @@ export function EventoDetalhe() {
               </li>
             </ul>
             <p className="text-[15px] leading-relaxed text-ink-3">{evento.descricao}</p>
+            {evento.origem === "real" ? (
+              <p className="text-[13px] leading-relaxed text-ink-3">
+                Data e local conferidos em{" "}
+                {evento.fonte ? (
+                  <a href={evento.fonte} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand hover:underline">
+                    fonte pública
+                  </a>
+                ) : (
+                  "fonte pública"
+                )}
+                . O Octopus não é o canal oficial deste evento; lotes e preços aqui são demonstrativos.
+              </p>
+            ) : null}
           </div>
         </div>
 

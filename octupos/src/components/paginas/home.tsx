@@ -39,11 +39,26 @@ export function Home() {
     <div className="flex flex-col">
       {/* Faixa principal nas cores do logo */}
       <section className="bg-gradient-to-br from-noite via-noite-2 to-brand text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-6 py-10 md:grid-cols-[1.4fr_1fr] md:py-16">
-          <div className="flex flex-col gap-4">
-            <span className="w-fit rounded-full bg-white/15 px-3 py-1 text-xs font-semibold">
-              Venda oficial e revenda no mesmo lugar
-            </span>
+        <div className="mx-auto max-w-6xl px-6 py-10 md:py-16">
+          <div className="flex max-w-3xl flex-col gap-4">
+            {/* Tentáculo segurando um ingresso, logo acima do selo. É decorativo: não recebe
+                cliques e mantém a proporção (só a altura é fixada). No celular fica menor. */}
+            <div className="flex flex-col items-start">
+              <Image
+                src="/images/tentaculo-ingresso.png"
+                alt=""
+                aria-hidden="true"
+                width={624}
+                height={204}
+                loading="eager"
+                draggable={false}
+                sizes="(min-width: 768px) 150px, 110px"
+                className="pointer-events-none -mb-1 h-9 w-auto select-none drop-shadow-lg md:h-12"
+              />
+              <span className="relative w-fit rounded-full bg-white/15 px-3 py-1 text-xs font-semibold backdrop-blur-sm">
+                Venda oficial e revenda no mesmo lugar
+              </span>
+            </div>
             <h1 className="text-[30px] font-extrabold leading-tight tracking-tight md:text-5xl">
               Ingressos com <span className="text-ouro">titularidade</span> do começo ao fim.
             </h1>
@@ -70,9 +85,6 @@ export function Home() {
                 Buscar eventos
               </button>
             </form>
-          </div>
-          <div className="hidden justify-center md:flex">
-            <Image src="/octopus-logo.png" alt="Logo Octopus Ingressos" width={280} height={280} priority className="drop-shadow-2xl" />
           </div>
         </div>
       </section>
